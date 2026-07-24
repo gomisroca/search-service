@@ -1,0 +1,4 @@
+/server
+*.exe
+.DS_Store
+EOF
