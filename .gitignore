@@ -1,4 +1,6 @@
-/server
-*.exe
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
 .DS_Store
-EOF

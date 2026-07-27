@@ -1,14 +1,14 @@
-# --- Build stage ---
-FROM golang:1.22-alpine AS builder
-WORKDIR /app
-COPY go.mod ./
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o /server .
+FROM python:3.12-slim
 
-# --- Run stage ---
-FROM alpine:3.20
 WORKDIR /app
-COPY --from=builder /server ./server
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app ./app
+
 EXPOSE 8080
+
 ENV PORT=8080
-ENTRYPOINT ["./server"]
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
